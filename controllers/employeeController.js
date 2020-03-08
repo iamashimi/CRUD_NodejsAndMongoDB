@@ -38,7 +38,16 @@ function insertRecord(req,res){
 }
 
 router.get('/list', (req,res) => {
-    res.json('from list');
+    Employee.find((err, docs) => {
+        if(!err) {
+            res.render("employee/list", {
+                list: docs
+            });
+        }
+        else{
+            Console.log('Error in retrieving employee list :' + err);
+        }
+    });
 });
 
 function handleValidationError(err, body){
